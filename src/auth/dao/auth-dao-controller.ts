@@ -40,7 +40,7 @@ export class AuthDAOController {
 			actionCode: RaintreeActionCode.FETCH_SUCCESS,
 			success: true,
 			message: RaintreeActionCode.message(RaintreeActionCode.FETCH_SUCCESS),
-			jwt: this._jwtService.generateToken(tenant.email),
+			jwt: this._jwtService.generateToken(tenant.email, tenant['_id'].toString()),
 		};
 	}
 

@@ -18,7 +18,7 @@
 	"dependencies": {
 		"bmx-alfred-ts": "^1.0.4",
 		"bmx-behemoth-ts": "^1.0.2",
-		"bmx-nverse-ts": "^1.1.8",
+		"bmx-nverse-ts": "^1.1.10",
 		"bmx-raintree-ts": "^1.0.5",
 		"cors": "^2.8.5",
 		"express": "^4.18.2",

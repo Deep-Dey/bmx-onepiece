@@ -1,7 +1,7 @@
 import {Router} from "express";
 import {RequestMapper} from "../request-mapper.js";
-import {AuthController} from "./controllers/auth-controller.js";
-import {AuthHandler} from './handlers/auth-handler.js';
+import {AuthController} from "./controller/auth-controller.js";
+import {AuthHandler} from './handler/auth-handler.js';
 import nverseMulter from '../nverse/nverse-multer.js';
 
 const router: Router = Router();
@@ -22,7 +22,7 @@ router
 	)
 	.post(
 		RequestMapper.REGISTER,
-		[authHandler.registrationHandler, nverseMulter()],
+		[authHandler.registrationHandler],
 		authController.register
 	);
 

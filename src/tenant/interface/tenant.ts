@@ -5,6 +5,7 @@ import {NVerseTenant} from 'bmx-nverse-ts';
 
 export interface Tenant extends NVerseTenant<USER_ROLE, UserRole> {
 	Uid: string;
+	name: string;
 	contactNumber: string;
 	contactNumberVerified: boolean;
 	decryptedEmail: string;

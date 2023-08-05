@@ -17,7 +17,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"bmx-alfred-ts": "^1.0.5",
-		"bmx-behemoth-ts": "^1.0.3",
+		"bmx-behemoth-ts": "^1.0.4",
 		"bmx-nverse-ts": "^1.1.12",
 		"bmx-raintree-ts": "^1.0.5",
 		"cors": "^2.8.5",

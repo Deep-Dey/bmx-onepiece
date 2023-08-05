@@ -27,7 +27,7 @@ export class AuthDAOController {
 			return this._response.prepareActionResponse(RaintreeActionCode.INCORRECT_INFORMATION);
 		}
 
-		let tenant: Tenant = await this._tenantDaoController.retrieveUserByEmail(authRequest.username);
+		const tenant: Tenant = await this._tenantDaoController.retrieveUserByEmail(authRequest.username);
 
 		if (!tenant) {
 			return this._response.prepareActionResponse(RaintreeActionCode.INCORRECT_INFORMATION);
@@ -45,7 +45,7 @@ export class AuthDAOController {
 	}
 
 	public authResolver = async (req: any): Promise<RaintreeResponse> => {
-		let tenant: Tenant = await this._nverseAuthorityResolver
+		const tenant: Tenant = await this._nverseAuthorityResolver
 			.resolveUserInformationFromAuthorizationToken(
 				req.headers.authorization.split(' ')[1] || '',
 				this._tenantDaoController.retrieveUserByEncryptedEmail
@@ -56,7 +56,7 @@ export class AuthDAOController {
 	public register = async (tenant: Tenant): Promise<RaintreeResponse> => {
 
 		tenant.email = this._emailEncoder.encode(tenant.email);
-		let existTenant: Tenant = await TenantModel.findOne(
+		const existTenant: Tenant = await TenantModel.findOne(
 			{
 				'$or': [
 					{email: tenant.email},

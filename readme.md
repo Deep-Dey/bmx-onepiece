@@ -23,6 +23,8 @@ NVERSE_AES_KEY = 32 character secret key
 NVERSE_AES_IV = 32 character secret key
 NVERSE_PASSWORD_KEY = 16 character secret key
 NVERSE_JWT_SECRET = 1024 character secret key
+MULTER_PATH = path to store temp files
+SERVER_URL = http://127.0.0.1:3000
 ```
 
 you can generate these keys randomly as follows
@@ -99,7 +101,9 @@ module.exports = {
 				NVERSE_AES_KEY: "32 character secret key",
 				NVERSE_AES_IV: "32 character secret key",
 				NVERSE_PASSWORD_KEY: "16 character secret key",
-				NVERSE_JWT_SECRET: "1024 character secret key"
+				NVERSE_JWT_SECRET: "1024 character secret key",
+				MULTER_PATH: "path to store temp files",
+				SERVER_URL: "http://127.0.0.1:3000"
 			},
 		},
 	],

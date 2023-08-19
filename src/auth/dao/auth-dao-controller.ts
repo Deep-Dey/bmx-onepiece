@@ -7,22 +7,20 @@ import {TenantDaoController} from '../../tenant/dao/tenant-dao-controller.js';
 import {TenantModel} from '../../tenant/orm/tenant-orm.js';
 import {USER_ROLE} from '../../tenant/enum/user-role.js';
 import {UserRoleModel} from '../../tenant/orm/user-role-orm.js';
-import {NVerseAuthorityResolver, NVerseEmailEncoder, NverseJwtService, NversePasswordEncoder} from 'bmx-nverse-ts';
+import {NVerseEmailEncoder, NverseJwtService, NversePasswordEncoder} from 'bmx-nverse-ts';
 import {RaintreeActionCode, RaintreeResponse} from 'bmx-raintree-ts';
 import {alfredLog} from 'bmx-alfred-ts';
 
 export class AuthDAOController {
 
-	private _response = new ProfileResponse();
-	private _authResponse = new AuthorityTokenResponse();
-	private _nverseAuthorityResolver = new NVerseAuthorityResolver<Tenant, USER_ROLE, UserRole>();
-	private _tenantDaoController = new TenantDaoController();
-	private _jwtService = new NverseJwtService();
-	private _emailEncoder = new NVerseEmailEncoder(process.env.NVERSE_AES_KEY || '', process.env.NVERSE_AES_IV || '');
-	private _passwordEncoder = new NversePasswordEncoder(process.env.NVERSE_PASSWORD_KEY || '');
+	private _response: ProfileResponse = new ProfileResponse();
+	private _authResponse: AuthorityTokenResponse = new AuthorityTokenResponse();
+	private _tenantDaoController: TenantDaoController = new TenantDaoController();
+	private _jwtService: NverseJwtService = new NverseJwtService();
+	private _emailEncoder: NVerseEmailEncoder = new NVerseEmailEncoder(process.env.NVERSE_AES_KEY || '', process.env.NVERSE_AES_IV || '');
+	private _passwordEncoder: NversePasswordEncoder = new NversePasswordEncoder(process.env.NVERSE_PASSWORD_KEY || '');
 
 	public login = async (authRequest: AuthRequest): Promise<RaintreeResponse> => {
-
 		if (!authRequest.username || !authRequest.password) {
 			return this._response.prepareActionResponse(RaintreeActionCode.INCORRECT_INFORMATION);
 		}
@@ -45,16 +43,10 @@ export class AuthDAOController {
 	}
 
 	public authResolver = async (req: any): Promise<RaintreeResponse> => {
-		const tenant: Tenant = await this._nverseAuthorityResolver
-			.resolveUserInformationFromAuthorizationToken(
-				req.headers.authorization.split(' ')[1] || '',
-				this._tenantDaoController.retrieveUserByEncryptedEmail
-			)
-		return this._authResponse.buildList(tenant.roles);
+		return this._authResponse.buildList(req.tenant.roles);
 	}
 
 	public register = async (tenant: Tenant): Promise<RaintreeResponse> => {
-
 		tenant.email = this._emailEncoder.encode(tenant.email);
 		const existTenant: Tenant = await TenantModel.findOne(
 			{
@@ -68,6 +60,7 @@ export class AuthDAOController {
 		if (existTenant) {
 			return this._response.prepareActionResponse(RaintreeActionCode.NOT_UNIQUE);
 		}
+
 		try {
 			const roles: UserRole[] = await UserRoleModel.insertMany([{
 				role: USER_ROLE.NORMAL_USER
@@ -78,13 +71,11 @@ export class AuthDAOController {
 
 			// TODO: handle profile picture
 			// TODO: req.files contains all images with key names
-
 			await TenantModel.create(tenant);
 		} catch (e) {
 			alfredLog.error(e.message, e.stack);
 			return this._response.prepareActionResponse(RaintreeActionCode.INSERT_FAILURE);
 		}
-
 		return this._response.prepareActionResponse(RaintreeActionCode.INSERT_SUCCESS);
 	}
 }

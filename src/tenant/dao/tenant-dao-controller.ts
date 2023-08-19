@@ -5,7 +5,7 @@ import {alfredLog} from 'bmx-alfred-ts';
 
 export class TenantDaoController extends NverseTenantDaoController<Tenant> {
 
-	private _emailEncoder = new NVerseEmailEncoder(process.env.NVERSE_AES_KEY || '', process.env.NVERSE_AES_IV || '');
+	private _emailEncoder: NVerseEmailEncoder = new NVerseEmailEncoder(process.env.NVERSE_AES_KEY || '', process.env.NVERSE_AES_IV || '');
 
 	public retrieveUserByEncryptedEmail = async (email: string): Promise<Tenant> => {
 		try {

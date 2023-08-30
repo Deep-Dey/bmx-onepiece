@@ -4,7 +4,6 @@ import {USER_ROLE} from '../enum/user-role.js';
 import {CollectionName} from '../../database/collection-name.js';
 
 const UserRoleSchema: Schema = new mongoose.Schema<UserRole>({
-	id: {type: Number},
 	role: {
 		type: String,
 		enum: [
@@ -17,23 +16,9 @@ const UserRoleSchema: Schema = new mongoose.Schema<UserRole>({
 	},
 }, {
 	timestamps: true,
+	versionKey: false,
 	toJSON: {
-		virtuals: true,
-		transform: function (doc: any, ret: Record<string, any>): void {
-			delete ret.__v;
-			delete ret._id;
-		}
-	}
-});
-
-UserRoleSchema.pre('validate', function (next: any): void {
-	if (this.isNew) {
-		UserRoleModel.count().then((res: number): void => {
-			this.id = res + 1;
-		}).finally(next);
-	} else {
-		this.__v += 1;
-		next();
+		virtuals: true
 	}
 });
 

@@ -38,7 +38,7 @@ export class AuthDAOController {
 			actionCode: RaintreeActionCode.FETCH_SUCCESS,
 			success: true,
 			message: RaintreeActionCode.message(RaintreeActionCode.FETCH_SUCCESS),
-			jwt: this._jwtService.generateToken(tenant.email, tenant['_id'].toString()),
+			jwt: this._jwtService.generateToken(tenant.email),
 		};
 	}
 
@@ -67,7 +67,7 @@ export class AuthDAOController {
 			}]);
 
 			tenant.password = this._passwordEncoder.encode(tenant.password);
-			tenant.roles = roles.map((role: UserRole) => role['_id']);
+			tenant.roles = roles.map((role: UserRole) => <UserRole><unknown>role._id.toString());
 
 			// TODO: handle profile picture
 			// TODO: req.files contains all images with key names

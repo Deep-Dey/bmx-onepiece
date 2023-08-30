@@ -4,13 +4,10 @@ import {GENDER} from '../enum/gender.js';
 import {CollectionName} from '../../database/collection-name.js';
 import {NVerseEmailEncoder} from 'bmx-nverse-ts';
 
-const emailValidator = new NVerseEmailEncoder(process.env.NVERSE_AES_KEY || '', process.env.NVERSE_AES_IV || '');
+const emailValidator = new NVerseEmailEncoder(
+	process.env.NVERSE_AES_KEY || '', process.env.NVERSE_AES_IV || '');
 
 const TenantSchema: Schema = new mongoose.Schema<Tenant>({
-	id: {
-		type: Number,
-		index: true
-	},
 	name: {
 		type: String,
 		required: true
@@ -68,12 +65,13 @@ const TenantSchema: Schema = new mongoose.Schema<Tenant>({
 	},
 }, {
 	timestamps: true,
+	versionKey: false,
 	toJSON: {
 		virtuals: true,
-		transform: function (doc: any, ret: Record<string, any>): void {
-			delete ret.__v;
-			delete ret._id;
-		}
+		// TODO: To transform any properties
+		// transform: function (doc: any, ret: Record<string, any>): void {
+		// 	delete ret.__v;
+		// }
 	},
 	virtuals: {
 		Uid: {
@@ -89,17 +87,13 @@ const TenantSchema: Schema = new mongoose.Schema<Tenant>({
 	}
 });
 
-
-TenantSchema.pre('validate', function (next: any): void {
-	if (this.isNew) {
-		TenantModel.count().then((res: number): void => {
-			this.id = res + 1;
-		}).finally(next);
-	} else {
-		this.__v += 1;
-		next();
-	}
-});
+// TODO: if need to validate before insert or update database
+// TenantSchema.pre('validate', function (next: any): void {
+// 	if (!this.isNew) {
+// 		this.__v += 1;
+// 	}
+// 	next();
+// });
 
 const TenantModel: Model<Tenant> = mongoose.model<Tenant>(
 	CollectionName.TENANT, TenantSchema, CollectionName.TENANT

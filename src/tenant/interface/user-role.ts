@@ -1,4 +1,4 @@
-import {USER_ROLE} from "../enum/user-role.js";
+import {USER_ROLE} from '../enum/user-role';
 import {BehemothInterface} from 'bmx-behemoth-ts';
 
 export interface UserRole extends BehemothInterface {

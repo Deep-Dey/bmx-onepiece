@@ -1,12 +1,9 @@
 import express, {Express} from 'express';
 import cors from 'cors';
-import authRoutes from './auth/auth.route.js';
-import {initDatabase} from './database/database-config.js';
+import authRoutes from './auth/auth.route';
 import {Raintree} from 'bmx-raintree-ts';
 
-
 const app: Express = express();
-const PORT: number = +(process.env.PORT || 3000);
 
 app.set('trust proxy', true)
 	.use(express.json({limit: '20mb'}))
@@ -15,19 +12,10 @@ app.set('trust proxy', true)
 		credentials: (process.env.CREDENTIALS || 'true') === 'true',
 		origin: (process.env.ORIGIN || '').split(','),
 	}))
+	.get('/ping', (req, res) => {
+		res.send({message: 'Server is running...'});
+	})
 	.use('/api/v1/auth', authRoutes)
 	.use(Raintree);
 
-
-const startServer = async (): Promise<void> => {
-	try {
-		await initDatabase();
-		app.listen(PORT, (): void => {
-			console.log(`Server is listening on port ${PORT}...`)
-		});
-	} catch (e: any) {
-		console.log(e.message);
-	}
-}
-
-startServer().then((value: void): void => {});
+export default app;

@@ -1,17 +1,17 @@
-import {AuthRequest} from '../interface/auth-request.js';
-import {Tenant} from '../../tenant/interface/tenant.js';
-import {UserRole} from '../../tenant/interface/user-role.js';
-import {ProfileResponse} from '../../restful/profile-response.js';
-import {AuthorityTokenResponse} from '../../restful/authority-token-response.js';
-import {TenantDaoController} from '../../tenant/dao/tenant-dao-controller.js';
-import {TenantModel} from '../../tenant/odm/tenant-odm.js';
-import {USER_ROLE} from '../../tenant/enum/user-role.js';
-import {UserRoleModel} from '../../tenant/odm/user-role-odm.js';
+import {AuthRequest} from '../interface/auth-request';
+import {Tenant} from '../../tenant/interface/tenant';
+import {UserRole} from '../../tenant/interface/user-role';
+import {ProfileResponse} from '../../restful/profile-response';
+import {AuthorityTokenResponse} from '../../restful/authority-token-response';
+import {TenantDaoController} from '../../tenant/dao/tenant-dao-controller';
+import {TenantModel} from '../../tenant/odm/tenant-odm';
+import {USER_ROLE} from '../../tenant/enum/user-role';
+import {UserRoleModel} from '../../tenant/odm/user-role-odm';
 import {NVerseEmailEncoder, NverseJwtService, NversePasswordEncoder} from 'bmx-nverse-ts';
 import {RaintreeActionCode, RaintreeResponse} from 'bmx-raintree-ts';
 import {alfredLog} from 'bmx-alfred-ts';
-import {BmxQueryResponse} from '../../nverse/interface/bmx-query-response.js';
-import {AuthorizedRequest} from '../../nverse/interface/authorized-request.js';
+import {BmxQueryResponse} from '../../nverse/interface/bmx-query-response';
+import {AuthorizedRequest} from '../../nverse/interface/authorized-request';
 
 export class AuthDAOController {
 

@@ -1,5 +1,5 @@
-import {AbstractTenantValidator} from "./abstract-tenant-validator.js";
-import {Tenant} from '../../tenant/interface/tenant.js';
+import {AbstractTenantValidator} from './abstract-tenant-validator';
+import {Tenant} from '../../tenant/interface/tenant';
 
 export class NewTenantValidator extends AbstractTenantValidator {
 

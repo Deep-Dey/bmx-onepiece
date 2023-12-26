@@ -1,6 +1,6 @@
-import {Tenant} from '../tenant/interface/tenant.js';
-import {USER_ROLE} from '../tenant/enum/user-role.js';
-import {UserRole} from '../tenant/interface/user-role.js';
+import {Tenant} from '../tenant/interface/tenant';
+import {USER_ROLE} from '../tenant/enum/user-role';
+import {UserRole} from '../tenant/interface/user-role';
 import {NverseGatekeeper} from 'bmx-nverse-ts';
 
 

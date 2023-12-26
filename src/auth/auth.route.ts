@@ -1,8 +1,8 @@
 import {Router} from "express";
-import {RequestMapper} from "../request-mapper.js";
-import {AuthController} from "./controller/auth-controller.js";
-import {AuthHandler} from './handler/auth-handler.js';
-import nverseMulter from '../nverse/nverse-multer.js';
+import {RequestMapper} from "../request-mapper";
+import {AuthController} from "./controller/auth-controller";
+import {AuthHandler} from './handler/auth-handler';
+import nverseMulter from '../nverse/nverse-multer';
 import { RequestHandler } from 'express';
 
 const router: Router = Router();
@@ -25,6 +25,11 @@ router
 		RequestMapper.REGISTER,
 		[authHandler.registrationHandler, nverseMulter()],
 		authController.register as RequestHandler
+	)
+	.get(
+		RequestMapper.PROFILE,
+		[authHandler.profileHandler],
+		authController.getProfile as RequestHandler
 	);
 
 export default router;

@@ -1,8 +1,8 @@
-import {Tenant} from '../interface/tenant.js';
-import {TenantModel} from '../odm/tenant-odm.js';
+import {Tenant} from '../interface/tenant';
+import {TenantModel} from '../odm/tenant-odm';
 import {NVerseEmailEncoder, NverseTenantDaoController} from 'bmx-nverse-ts';
 import {alfredLog} from 'bmx-alfred-ts';
-import {BmxQueryResponse} from '../../nverse/interface/bmx-query-response.js';
+import {BmxQueryResponse} from '../../nverse/interface/bmx-query-response';
 
 export class TenantDaoController extends NverseTenantDaoController<Tenant> {
 

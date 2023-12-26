@@ -1,5 +1,5 @@
-import {UserRole} from '../tenant/interface/user-role.js';
-import {USER_ROLE} from '../tenant/enum/user-role.js';
+import {UserRole} from '../tenant/interface/user-role';
+import {USER_ROLE} from '../tenant/enum/user-role';
 import {Authority} from 'bmx-nverse-ts';
 import {RaintreeActionCode, RaintreeResponse} from 'bmx-raintree-ts';
 import {BehemothResponse} from 'bmx-behemoth-ts';

@@ -1,4 +1,4 @@
-import {Tenant} from "../../tenant/interface/tenant.js";
+import {Tenant} from "../../tenant/interface/tenant";
 import {NVerseValidator} from 'bmx-nverse-ts';
 
 export abstract class AbstractTenantValidator implements NVerseValidator<Tenant> {

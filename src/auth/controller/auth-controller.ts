@@ -1,6 +1,6 @@
 import {Request, Response, NextFunction} from 'express';
-import {AuthDAOController} from '../dao/auth-dao-controller.js';
-import {AuthorizedRequest} from '../../nverse/interface/authorized-request.js';
+import {AuthDAOController} from '../dao/auth-dao-controller';
+import {AuthorizedRequest} from '../../nverse/interface/authorized-request';
 
 export class AuthController {
 
@@ -16,5 +16,9 @@ export class AuthController {
 
 	public register = (req: Request, res: Response, next: NextFunction): void => {
 		this._authDAOController.register(req.body).then(next).catch(next);
+	}
+
+	public getProfile = (req: AuthorizedRequest, res: Response, next: NextFunction): void => {
+		this._authDAOController.getProfile(req).then(next).catch(next);
 	}
 }

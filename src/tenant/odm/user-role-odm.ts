@@ -1,7 +1,7 @@
 import mongoose, {Model, Schema} from 'mongoose';
-import {UserRole} from '../interface/user-role.js';
-import {USER_ROLE} from '../enum/user-role.js';
-import {CollectionName} from '../../database/collection-name.js';
+import {UserRole} from '../interface/user-role';
+import {USER_ROLE} from '../enum/user-role';
+import {CollectionName} from '../../database/collection-name';
 
 const UserRoleSchema: Schema = new mongoose.Schema<UserRole>({
 	role: {

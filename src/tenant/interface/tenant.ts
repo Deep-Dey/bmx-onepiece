@@ -1,6 +1,6 @@
-import {UserRole} from './user-role.js';
-import {GENDER} from '../enum/gender.js';
-import {USER_ROLE} from '../enum/user-role.js';
+import {UserRole} from './user-role';
+import {GENDER} from '../enum/gender';
+import {USER_ROLE} from '../enum/user-role';
 import {NVerseTenant} from 'bmx-nverse-ts';
 
 export interface Tenant extends NVerseTenant<USER_ROLE, UserRole> {

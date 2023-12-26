@@ -1,4 +1,4 @@
-import {Tenant} from "../tenant/interface/tenant.js";
+import {Tenant} from '../tenant/interface/tenant';
 import {RaintreeResponse} from 'bmx-raintree-ts';
 import {BehemothResponse} from 'bmx-behemoth-ts';
 

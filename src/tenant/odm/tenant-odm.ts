@@ -1,7 +1,7 @@
 import mongoose, {Model, Schema} from 'mongoose';
-import {Tenant} from '../interface/tenant.js';
-import {GENDER} from '../enum/gender.js';
-import {CollectionName} from '../../database/collection-name.js';
+import {Tenant} from '../interface/tenant';
+import {GENDER} from '../enum/gender';
+import {CollectionName} from '../../database/collection-name';
 import {NVerseEmailEncoder} from 'bmx-nverse-ts';
 
 const emailValidator = new NVerseEmailEncoder(
@@ -75,6 +75,7 @@ const TenantSchema: Schema = new mongoose.Schema<Tenant>({
 	toJSON: {
 		virtuals: true
 	},
+	id: false,
 	virtuals: {
 		decryptedEmail: {
 			get(): string {

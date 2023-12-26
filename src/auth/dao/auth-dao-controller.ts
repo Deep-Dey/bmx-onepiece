@@ -1,17 +1,17 @@
-import {AuthRequest} from '../interface/auth-request.js';
-import {Tenant} from '../../tenant/interface/tenant.js';
-import {UserRole} from '../../tenant/interface/user-role.js';
-import {ProfileResponse} from '../../restful/profile-response.js';
-import {AuthorityTokenResponse} from '../../restful/authority-token-response.js';
-import {TenantDaoController} from '../../tenant/dao/tenant-dao-controller.js';
-import {TenantModel} from '../../tenant/odm/tenant-odm.js';
-import {USER_ROLE} from '../../tenant/enum/user-role.js';
-import {UserRoleModel} from '../../tenant/odm/user-role-odm.js';
+import {AuthRequest} from '../interface/auth-request';
+import {Tenant} from '../../tenant/interface/tenant';
+import {UserRole} from '../../tenant/interface/user-role';
+import {ProfileResponse} from '../../restful/profile-response';
+import {AuthorityTokenResponse} from '../../restful/authority-token-response';
+import {TenantDaoController} from '../../tenant/dao/tenant-dao-controller';
+import {TenantModel} from '../../tenant/odm/tenant-odm';
+import {USER_ROLE} from '../../tenant/enum/user-role';
+import {UserRoleModel} from '../../tenant/odm/user-role-odm';
 import {NVerseEmailEncoder, NverseJwtService, NversePasswordEncoder} from 'bmx-nverse-ts';
 import {RaintreeActionCode, RaintreeResponse} from 'bmx-raintree-ts';
 import {alfredLog} from 'bmx-alfred-ts';
-import {BmxQueryResponse} from '../../nverse/interface/bmx-query-response.js';
-import {AuthorizedRequest} from '../../nverse/interface/authorized-request.js';
+import {BmxQueryResponse} from '../../nverse/interface/bmx-query-response';
+import {AuthorizedRequest} from '../../nverse/interface/authorized-request';
 
 export class AuthDAOController {
 
@@ -55,7 +55,7 @@ export class AuthDAOController {
 	}
 
 	public authResolver = async (req: AuthorizedRequest): Promise<RaintreeResponse> => {
-		return this._authResponse.buildList(req.tenant.roles);
+		return this._authResponse.buildList(req.tenant?.roles as UserRole[]);
 	}
 
 	public register = async (tenant: Tenant): Promise<RaintreeResponse> => {
@@ -95,5 +95,18 @@ export class AuthDAOController {
 
 		return this._response
 			.prepareActionResponse(RaintreeActionCode.INSERT_SUCCESS);
+	}
+
+	public getProfile = async (req: AuthorizedRequest): Promise<RaintreeResponse> => {
+
+		let {decryptedEmail, password, roles, ...profile} = req.tenant?.toJSON() as Tenant;
+		profile.email = decryptedEmail;
+
+		return {
+			actionCode: RaintreeActionCode.FETCH_SUCCESS,
+			success: true,
+			message: RaintreeActionCode.message(RaintreeActionCode.FETCH_SUCCESS),
+			profile: profile
+		};
 	}
 }

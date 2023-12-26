@@ -4,7 +4,7 @@ import {NVerseValidator} from 'bmx-nverse-ts';
 export abstract class AbstractTenantValidator implements NVerseValidator<Tenant> {
 
 	public validate(entity: Tenant) {
-		// TODO: implement
+		// TODO: implement validation
 		return true;
 	}
 

@@ -10,6 +10,8 @@ import {UserRoleModel} from '../../tenant/odm/user-role-odm.js';
 import {NVerseEmailEncoder, NverseJwtService, NversePasswordEncoder} from 'bmx-nverse-ts';
 import {RaintreeActionCode, RaintreeResponse} from 'bmx-raintree-ts';
 import {alfredLog} from 'bmx-alfred-ts';
+import {BmxQueryResponse} from '../../nverse/interface/bmx-query-response.js';
+import {AuthorizedRequest} from '../../nverse/interface/authorized-request.js';
 
 export class AuthDAOController {
 
@@ -52,14 +54,14 @@ export class AuthDAOController {
 		};
 	}
 
-	public authResolver = async (req: any): Promise<RaintreeResponse> => {
+	public authResolver = async (req: AuthorizedRequest): Promise<RaintreeResponse> => {
 		return this._authResponse.buildList(req.tenant.roles);
 	}
 
 	public register = async (tenant: Tenant): Promise<RaintreeResponse> => {
 
 		tenant.email = this._emailEncoder.encode(tenant.email);
-		const existTenant: Tenant = await TenantModel.findOne(
+		const existTenant: BmxQueryResponse<Tenant> = await TenantModel.findOne(
 			{
 				'$or': [
 					{email: tenant.email},
@@ -85,7 +87,7 @@ export class AuthDAOController {
 			// TODO: req.files contains all images with key names
 			await TenantModel.create(tenant);
 
-		} catch (e) {
+		} catch (e: any) {
 			alfredLog.error(e.message, e.stack);
 			return this._response
 				.prepareActionResponse(RaintreeActionCode.INSERT_FAILURE);

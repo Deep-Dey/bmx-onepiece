@@ -78,6 +78,8 @@ const TenantSchema: Schema = new mongoose.Schema<Tenant>({
 	virtuals: {
 		decryptedEmail: {
 			get(): string {
+				//TODO: need to find a fix for this
+				// @ts-ignore
 				return emailValidator.decode(this.email);
 			}
 		}

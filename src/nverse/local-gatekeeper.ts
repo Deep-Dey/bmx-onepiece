@@ -3,7 +3,7 @@ import {USER_ROLE} from '../tenant/enum/user-role.js';
 import {UserRole} from '../tenant/interface/user-role.js';
 import {NverseGatekeeper} from 'bmx-nverse-ts';
 
-//TODO: This is the implemented class
+
 export class LocalGatekeeper extends NverseGatekeeper<Tenant, USER_ROLE, UserRole> {
 
 	public static readonly CODE_SU: number = 1;

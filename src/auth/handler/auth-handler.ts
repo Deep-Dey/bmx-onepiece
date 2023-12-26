@@ -1,3 +1,4 @@
+import {Request, Response, NextFunction} from 'express';
 import {Tenant} from '../../tenant/interface/tenant.js';
 import {USER_ROLE} from '../../tenant/enum/user-role.js';
 import {UserRole} from '../../tenant/interface/user-role.js';
@@ -18,7 +19,7 @@ export class AuthHandler {
 	private _nverseAuthorityResolver = new NVerseAuthorityResolver<Tenant, USER_ROLE, UserRole>();
 	private _tenantDaoController = new TenantDaoController();
 
-	public loginHandler = (req, res, next): any => {
+	public loginHandler = (req: Request, res: Response, next: NextFunction): void => {
 		unAuthGetEntityHandler(
 			req,
 			res,
@@ -32,7 +33,7 @@ export class AuthHandler {
 		});
 	}
 
-	public authResolveHandler = (req, res, next): any => {
+	public authResolveHandler = (req: Request, res: Response, next: NextFunction): void => {
 		getEntityHandler<Tenant, USER_ROLE, UserRole>(
 			req,
 			res,
@@ -51,7 +52,7 @@ export class AuthHandler {
 		});
 	}
 
-	public registrationHandler = (req, res, next): any => {
+	public registrationHandler = (req: Request, res: Response, next: NextFunction): void => {
 		unAuthPostEntityHandler(
 			req,
 			res,

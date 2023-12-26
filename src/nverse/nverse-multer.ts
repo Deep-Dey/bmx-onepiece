@@ -1,9 +1,10 @@
+import {RequestHandler} from 'express';
 import multer from 'multer';
 
 const nverseMulter = (
 	destination: string = process.env.MULTER_PATH || './temp-files',
 	limit: number = 5
-): multer => {
+): RequestHandler => {
 	return multer({
 		dest: destination,
 		limits: {

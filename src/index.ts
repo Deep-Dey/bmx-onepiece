@@ -6,7 +6,7 @@ import {Raintree} from 'bmx-raintree-ts';
 
 
 const app: Express = express();
-const PORT: number = +process.env.PORT || 3000;
+const PORT: number = +(process.env.PORT || 3000);
 
 app.set('trust proxy', true)
 	.use(express.json({limit: '20mb'}))
@@ -18,14 +18,15 @@ app.set('trust proxy', true)
 	.use('/api/v1/auth', authRoutes)
 	.use(Raintree);
 
+
 const startServer = async (): Promise<void> => {
 	try {
 		await initDatabase();
 		app.listen(PORT, (): void => {
 			console.log(`Server is listening on port ${PORT}...`)
 		});
-	} catch (e) {
-		console.log(e);
+	} catch (e: any) {
+		console.log(e.message);
 	}
 }
 

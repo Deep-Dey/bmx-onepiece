@@ -1,5 +1,5 @@
 import {Tenant} from '../interface/tenant.js';
-import {TenantModel} from '../orm/tenant-orm.js';
+import {TenantModel} from '../odm/tenant-odm.js';
 import {NVerseEmailEncoder, NverseTenantDaoController} from 'bmx-nverse-ts';
 import {alfredLog} from 'bmx-alfred-ts';
 

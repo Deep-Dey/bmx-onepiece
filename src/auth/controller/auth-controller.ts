@@ -4,7 +4,7 @@ import {AuthorizedRequest} from '../../nverse/interface/authorized-request.js';
 
 export class AuthController {
 
-	private _authDAOController = new AuthDAOController();
+	private _authDAOController: AuthDAOController = new AuthDAOController();
 
 	public login = (req: Request, res: Response, next: NextFunction): void => {
 		this._authDAOController.login(req.body).then(next).catch(next);

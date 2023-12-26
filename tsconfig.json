@@ -12,7 +12,5 @@
 		"strict": true,
 		"noImplicitAny": true
 	},
-	"include": [
-		"src/**/*"
-, "server.ts", "app.ts"	]
+	"include": ["src/**/*", "server.ts", "app.ts"]
 }

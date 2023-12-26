@@ -3,12 +3,12 @@
 	"version": "0.0.1",
 	"description": "backend api-server for project black-widow",
 	"main": "index.js",
-	"type": "module",
+	"type": "commonjs",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "jest --coverage",
 		"build": "tsc",
 		"build-watch": "tsc --w",
-		"start-dev": "nodemon -r dotenv/config dist/index.js"
+		"start-dev": "nodemon -r dotenv/config dist/server.js"
 	},
 	"keywords": [
 		"onepiece"

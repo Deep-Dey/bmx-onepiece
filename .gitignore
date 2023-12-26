@@ -157,3 +157,5 @@ build/
 
 **/temp-files/*
 !**/temp-files/.gitkeep
+__tests__/**
+!__tests__/app.test.ts

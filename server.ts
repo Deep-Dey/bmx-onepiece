@@ -1,4 +1,4 @@
-import {initDatabase} from './database/database-config';
+import {initDatabase} from './src/database/database-config';
 import app from './app';
 
 const PORT: number = +(process.env.PORT || 3000);

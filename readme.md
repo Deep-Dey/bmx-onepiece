@@ -86,7 +86,7 @@ module.exports = {
 			name: "app-name",
 			exec_mode: "cluster",
 			instances: "3",
-			script: "./dist/index.js", // your script
+			script: "./dist/server.js", // your script
 			args: "start",
 			watch: false, // only for development
 			maxRetries: 2,

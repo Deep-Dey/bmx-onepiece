@@ -4,33 +4,19 @@ import authRoutes from './auth/auth.route.js';
 import {initDatabase} from './database/database-config.js';
 import {Raintree} from 'bmx-raintree-ts';
 
-//----------- start configuration ----------------//
 
 const app: Express = express();
 const PORT: number = +process.env.PORT || 3000;
-app.use(cors({
-	credentials: (process.env.CREDENTIALS || 'true') === 'true',
-	origin: (process.env.ORIGIN || 'localhost:4200').split(','),
-}));
 
-app.use(express.json({limit: '20mb'}));
-app.use(express.urlencoded({limit: '20mb', extended: false}));
-
-//----------- end configuration ----------------//
-//----------- route configuration ----------------//
-
-app.get('/ping', [], (req, res): void => {
-	res.status(200).json({
-		success: true,
-		message: 'Server is running!',
-	});
-});
-
-app.use('/api/v1/auth', authRoutes);
-app.use(Raintree);
-
-//----------- end route configuration ----------------//
-//----------- start server ----------------//
+app.set('trust proxy', true)
+	.use(express.json({limit: '20mb'}))
+	.use(express.urlencoded({limit: '20mb', extended: false}))
+	.use(cors({
+		credentials: (process.env.CREDENTIALS || 'true') === 'true',
+		origin: (process.env.ORIGIN || '').split(','),
+	}))
+	.use('/api/v1/auth', authRoutes)
+	.use(Raintree);
 
 const startServer = async (): Promise<void> => {
 	try {
@@ -42,4 +28,5 @@ const startServer = async (): Promise<void> => {
 		console.log(e);
 	}
 }
+
 startServer().then((value: void): void => {});

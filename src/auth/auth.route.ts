@@ -22,7 +22,7 @@ router
 	)
 	.post(
 		RequestMapper.REGISTER,
-		[authHandler.registrationHandler],
+		[authHandler.registrationHandler, nverseMulter()],
 		authController.register
 	);
 

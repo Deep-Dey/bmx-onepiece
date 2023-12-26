@@ -8,6 +8,12 @@ const emailValidator = new NVerseEmailEncoder(
 	process.env.NVERSE_AES_KEY || '', process.env.NVERSE_AES_IV || '');
 
 const TenantSchema: Schema = new mongoose.Schema<Tenant>({
+	Uid: {
+		type: String,
+		required: true,
+		unique: true,
+		index: true
+	},
 	name: {
 		type: String,
 		required: true
@@ -67,18 +73,9 @@ const TenantSchema: Schema = new mongoose.Schema<Tenant>({
 	timestamps: true,
 	versionKey: false,
 	toJSON: {
-		virtuals: true,
-		// TODO: To transform any properties
-		// transform: function (doc: any, ret: Record<string, any>): void {
-		// 	delete ret.__v;
-		// }
+		virtuals: true
 	},
 	virtuals: {
-		Uid: {
-			get(): string {
-				return this._id;
-			}
-		},
 		decryptedEmail: {
 			get(): string {
 				return emailValidator.decode(this.email);
@@ -86,14 +83,6 @@ const TenantSchema: Schema = new mongoose.Schema<Tenant>({
 		}
 	}
 });
-
-// TODO: if need to validate before insert or update database
-// TenantSchema.pre('validate', function (next: any): void {
-// 	if (!this.isNew) {
-// 		this.__v += 1;
-// 	}
-// 	next();
-// });
 
 const TenantModel: Model<Tenant> = mongoose.model<Tenant>(
 	CollectionName.TENANT, TenantSchema, CollectionName.TENANT

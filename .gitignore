@@ -153,3 +153,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+**/temp-files/*
+!**/temp-files/.gitkeep

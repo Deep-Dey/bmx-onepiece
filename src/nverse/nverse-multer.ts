@@ -1,7 +1,7 @@
 import multer from 'multer';
 
 const nverseMulter = (
-	destination: string = process.env.MULTER_PATH || './uploaded-temp-files',
+	destination: string = process.env.MULTER_PATH || './temp-files',
 	limit: number = 5
 ): multer => {
 	return multer({

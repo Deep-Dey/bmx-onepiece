@@ -75,6 +75,7 @@ const TenantSchema: Schema = new mongoose.Schema<Tenant>({
 	toJSON: {
 		virtuals: true
 	},
+	id: false,
 	virtuals: {
 		decryptedEmail: {
 			get(): string {

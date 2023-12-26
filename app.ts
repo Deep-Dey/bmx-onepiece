@@ -1,4 +1,4 @@
-import express, {Express} from 'express';
+import express, {Express, Request, Response} from 'express';
 import cors from 'cors';
 import authRoutes from './src/auth/auth.route';
 import {Raintree} from 'bmx-raintree-ts';
@@ -12,7 +12,7 @@ app.set('trust proxy', true)
 		credentials: (process.env.CREDENTIALS || 'true') === 'true',
 		origin: (process.env.ORIGIN || '').split(','),
 	}))
-	.get('/ping', (req, res) => {
+	.get('/ping', (req: Request, res: Response) => {
 		res.send({message: 'Server is running...'});
 	})
 	.use('/api/v1/auth', authRoutes)

@@ -17,4 +17,8 @@ export class AuthController {
 	public register = (req: Request, res: Response, next: NextFunction): void => {
 		this._authDAOController.register(req.body).then(next).catch(next);
 	}
+
+	public getProfile = (req: AuthorizedRequest, res: Response, next: NextFunction): void => {
+		this._authDAOController.getProfile(req).then(next).catch(next);
+	}
 }

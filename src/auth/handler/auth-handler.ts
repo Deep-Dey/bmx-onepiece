@@ -67,4 +67,23 @@ export class AuthHandler {
 			});
 		});
 	}
+
+	public profileHandler = (req: Request, res: Response, next: NextFunction): void => {
+		getEntityHandler<Tenant, USER_ROLE, UserRole>(
+			req,
+			res,
+			this._gateKeeper,
+			this._nverseAuthorityResolver,
+			'profileHandler',
+			LocalGatekeeper.CODE_ADNU,
+			'You are not authorized to perform this action.',
+			this._tenantDaoController.retrieveUserByEncryptedEmail
+		).then(next).catch(e => {
+			alfredLog.error(e.message, e.stack);
+			res.status(401).send({
+				success: false,
+				message: e.message
+			});
+		});
+	}
 }

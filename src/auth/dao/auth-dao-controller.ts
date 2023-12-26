@@ -55,7 +55,7 @@ export class AuthDAOController {
 	}
 
 	public authResolver = async (req: AuthorizedRequest): Promise<RaintreeResponse> => {
-		return this._authResponse.buildList(req.tenant.roles);
+		return this._authResponse.buildList(req.tenant?.roles as UserRole[]);
 	}
 
 	public register = async (tenant: Tenant): Promise<RaintreeResponse> => {
@@ -95,5 +95,18 @@ export class AuthDAOController {
 
 		return this._response
 			.prepareActionResponse(RaintreeActionCode.INSERT_SUCCESS);
+	}
+
+	public getProfile = async (req: AuthorizedRequest): Promise<RaintreeResponse> => {
+
+		let {decryptedEmail, password, roles, ...profile} = req.tenant?.toJSON() as Tenant;
+		profile.email = decryptedEmail;
+
+		return {
+			actionCode: RaintreeActionCode.FETCH_SUCCESS,
+			success: true,
+			message: RaintreeActionCode.message(RaintreeActionCode.FETCH_SUCCESS),
+			profile: profile
+		};
 	}
 }

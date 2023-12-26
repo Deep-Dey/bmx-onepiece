@@ -25,6 +25,11 @@ router
 		RequestMapper.REGISTER,
 		[authHandler.registrationHandler, nverseMulter()],
 		authController.register as RequestHandler
+	)
+	.get(
+		RequestMapper.PROFILE,
+		[authHandler.profileHandler],
+		authController.getProfile as RequestHandler
 	);
 
 export default router;
